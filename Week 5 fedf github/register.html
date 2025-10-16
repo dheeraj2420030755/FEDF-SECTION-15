@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Register</title>
+</head>
+<body>
+<form id="f">
+Full Name: <input type="text" id="name" required pattern=".*"><span id="nmsg"></span><br>
+Email: <input type="email" id="email" required><span id="emsg"></span><br>
+Password: <input type="password" id="password" required pattern=".{6,}"><span id="pmsg"></span><br>
+Phone Number: <input type="text" id="phone" required pattern="\d{10}"><span id="phmsg"></span><br>
+<input type="submit" value="Register">
+</form>
+<p id="msg"></p>
+<a href="login.html">Already registered? Login here</a>
+
+<script>
+let n=document.getElementById('name'),
+    e=document.getElementById('email'),
+    p=document.getElementById('password'),
+    ph=document.getElementById('phone'),
+    nmsg=document.getElementById('nmsg'),
+    emsg=document.getElementById('emsg'),
+    pmsg=document.getElementById('pmsg'),
+    phmsg=document.getElementById('phmsg'),
+    f=document.getElementById('f'),
+    msg=document.getElementById('msg');
+
+n.oninput = ()=> { n.value.trim()? (n.style.border='2px solid green', nmsg.textContent='') : (n.style.border='2px solid red', nmsg.textContent='Required'); }
+e.oninput = ()=> { /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.value)? (e.style.border='2px solid green', emsg.textContent='') : (e.style.border='2px solid red', emsg.textContent='Invalid email'); }
+p.oninput = ()=> { /.{6,}/.test(p.value)? (p.style.border='2px solid green', pmsg.textContent='') : (p.style.border='2px solid red', pmsg.textContent='Min 6 chars'); }
+ph.oninput = ()=> { /^\d{10}$/.test(ph.value)? (ph.style.border='2px solid green', phmsg.textContent='') : (ph.style.border='2px solid red', phmsg.textContent='10 digits'); }
+
+f.onsubmit = e=>{
+    e.preventDefault();
+    n.oninput(); e.oninput(); p.oninput(); ph.oninput();
+    if(n.style.border=='2px solid green' && e.style.border=='2px solid green' && p.style.border=='2px solid green' && ph.style.border=='2px solid green'){
+        msg.textContent='Registration successful'; msg.style.color='green';
+    }else{
+        msg.textContent='Fill all fields correctly'; msg.style.color='red';
+    }
+}
+</script>
+</body>
+</html>

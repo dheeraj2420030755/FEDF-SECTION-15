@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+</head>
+<body>
+<form id="f">
+Full Name: <input type="text" id="name" required><span id="nmsg"></span><br>
+Password: <input type="password" id="password" required pattern=".{6,}"><span id="pmsg"></span><br>
+<input type="submit" value="Login">
+</form>
+<p id="msg"></p>
+<a href="register.html">Not registered? Sign up here</a>
+
+<script>
+let n=document.getElementById('name'),
+    p=document.getElementById('password'),
+    nmsg=document.getElementById('nmsg'),
+    pmsg=document.getElementById('pmsg'),
+    f=document.getElementById('f'),
+    msg=document.getElementById('msg');
+
+n.oninput = ()=> { n.value.trim()? (n.style.border='2px solid green', nmsg.textContent='') : (n.style.border='2px solid red', nmsg.textContent='Required'); }
+p.oninput = ()=> { /.{6,}/.test(p.value)? (p.style.border='2px solid green', pmsg.textContent='') : (p.style.border='2px solid red', pmsg.textContent='Min 6 chars'); }
+
+f.onsubmit = e=>{
+    e.preventDefault();
+    n.oninput(); p.oninput();
+    if(n.style.border=='2px solid green' && p.style.border=='2px solid green'){
+        msg.textContent='Login successful'; msg.style.color='green';
+    }else{
+        msg.textContent='Enter valid credentials'; msg.style.color='red';
+    }
+}
+</script>
+</body>
+</html>
